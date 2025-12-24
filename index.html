@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XORBYTE | Kura Sistemi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="background-effects">
+        <div class="glow-vignette"></div>
+        <div class="glow-vignette-2"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>XORBYTE</h1>
+            </div>
+        </header>
+
+        <main class="app-layout">
+            <!-- Sidebar -->
+            <section class="panel input-panel">
+                <div class="panel-header">
+                    <h2>Katılımcılar</h2>
+                    <span class="count-badge" id="participant-count">0</span>
+                </div>
+
+                <div class="input-area">
+                    <textarea id="names-input" spellcheck="false" placeholder="Her satıra bir isim yazın..."></textarea>
+                </div>
+
+                <div class="controls">
+                    <button id="update-btn" class="btn">
+                        GÜNCELLE
+                    </button>
+                    <button id="clear-btn" class="btn danger">
+                        TEMİZLE
+                    </button>
+                </div>
+            </section>
+
+            <!-- Wheel Section -->
+            <section class="wheel-container">
+                <div class="wheel-inner-box">
+                    <div class="pointer"></div>
+                    <canvas id="wheel-canvas" width="600" height="600"></canvas>
+                    <div class="center-circle">
+                        <img src="logo_final.jpg" alt="Logo" class="center-logo-img">
+                    </div>
+                </div>
+
+                <div class="action-area">
+                    <button id="spin-btn" class="btn primary big-btn">
+                        ÇARKI ÇEVİR
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Winner Modal -->
+    <div id="winner-modal" class="modal">
+        <div class="modal-content">
+            <h2>KAZANAN BELİRLENDİ</h2>
+            <div class="winner-name" id="modal-winner-name">---</div>
+            <button class="btn primary" id="close-modal"
+                style="width: 100%; padding: 1rem; border-radius: 50px; background: #fff; color: #000; border: none; font-weight: 800;">
+                KAPAT
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
