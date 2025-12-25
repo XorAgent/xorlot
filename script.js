@@ -9,10 +9,9 @@ const modal = document.getElementById('winner-modal');
 const modalWinnerName = document.getElementById('modal-winner-name');
 const closeModal = document.getElementById('close-modal');
 
-// High-end palette: Alternating Red and Black
 const palette = [
-    '#ef4444', // Red
-    '#111111'  // Black
+    '#ef4444', 
+    '#111111'  
 ];
 
 let names = ["XorTest", "XorTest 1", "XorTest 2", "XorTest 3", "XorTest 4", "XorTest 5"];
@@ -35,10 +34,9 @@ function updateNames() {
     arc = Math.PI / (names.length / 2);
     participantCount.innerText = newNames.length;
 
-    // Alternating colors with 'Joker' color for odd counts
     colors = names.map((_, i) => {
         if (names.length > 1 && names.length % 2 !== 0 && i === names.length - 1) {
-            return '#f59e0b'; // Joker Color: Deep Gold/Amber
+            return '#f59e0b'; 
         }
         return palette[i % 2];
     });
@@ -54,7 +52,6 @@ function drawWheel() {
 
     ctx.clearRect(0, 0, size, size);
 
-    // Outer shadow for the whole wheel
     ctx.shadowBlur = 40;
     ctx.shadowColor = 'rgba(0,0,0,0.5)';
 
@@ -62,15 +59,14 @@ function drawWheel() {
         const angle = startAngle + i * arc;
         const color = colors[i];
 
-        // 1. Slice Gradient (3D Depth)
         const radGrad = ctx.createRadialGradient(center, center, insideRadius, center, center, outsideRadius);
         radGrad.addColorStop(0, color);
-        radGrad.addColorStop(1, adjustColor(color, -40)); // Darker at edges
+        radGrad.addColorStop(1, adjustColor(color, -40));
 
         ctx.fillStyle = radGrad;
         ctx.strokeStyle = "rgba(255,255,255,0.1)";
         ctx.lineWidth = 2;
-        ctx.shadowBlur = 0; // Reset shadow for individual slices
+        ctx.shadowBlur = 0; 
 
         ctx.beginPath();
         ctx.arc(center, center, outsideRadius, angle, angle + arc, false);
@@ -78,7 +74,6 @@ function drawWheel() {
         ctx.fill();
         ctx.stroke();
 
-        // 2. Glossy Highlight (Top Overlay)
         ctx.save();
         const highlightGrad = ctx.createLinearGradient(center, center - outsideRadius, center, center + outsideRadius);
         highlightGrad.addColorStop(0, 'rgba(255,255,255,0.15)');
@@ -88,7 +83,6 @@ function drawWheel() {
         ctx.fill();
         ctx.restore();
 
-        // 3. Text with subtle shadow
         ctx.save();
         ctx.fillStyle = "white";
         ctx.shadowColor = "rgba(0,0,0,0.8)";
@@ -104,7 +98,6 @@ function drawWheel() {
         ctx.restore();
     }
 
-    // 4. Center Circle Bevel Effect
     ctx.save();
     ctx.beginPath();
     ctx.arc(center, center, insideRadius + 5, 0, Math.PI * 2);
@@ -117,7 +110,6 @@ function drawWheel() {
     ctx.restore();
 }
 
-// Helper function to darken/lighten colors
 function adjustColor(hex, amt) {
     let usePound = false;
     if (hex[0] == "#") {
@@ -141,12 +133,12 @@ function spin() {
     isSpinning = true;
     spinBtn.disabled = true;
 
-    const spinAngleStart = Math.random() * 4 + 8; // Further reduced speed for more weight
+    const spinAngleStart = Math.random() * 4 + 8;
     let spinTime = 0;
-    const spinTimeTotal = Math.random() * 4000 + 10000; // 10 to 14 seconds of spin duration
+    const spinTimeTotal = Math.random() * 4000 + 10000; 
 
     function rotate() {
-        spinTime += 16.67; // Approx 60fps
+        spinTime += 16.67; 
         if (spinTime >= spinTimeTotal) {
             stopRotate();
             return;
@@ -167,14 +159,14 @@ function stopRotate() {
     const arcd = arc * 180 / Math.PI;
     const index = Math.floor((360 - degrees % 360) / arcd);
 
-    // Wait 500ms after stopping for suspense
+    
     setTimeout(() => {
         showWinner(names[index]);
     }, 500);
 }
 
 function easeOut(t, b, c, d) {
-    return c * ((t = t / d - 1) * t * t * t * t + 1) + b; // Quintic Ease Out
+    return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
 }
 
 function showWinner(name) {
@@ -192,7 +184,7 @@ function triggerConfetti() {
         return Math.random() * (max - min) + min;
     }
 
-    // 1. Initial Mega Explosion
+   
     confetti({
         particleCount: 200,
         spread: 90,
@@ -203,7 +195,6 @@ function triggerConfetti() {
         zIndex: 9999
     });
 
-    // 2. Continuous Show
     const interval = setInterval(function () {
         const timeLeft = animationEnd - Date.now();
 
@@ -213,7 +204,6 @@ function triggerConfetti() {
 
         const particleCount = 40 * (timeLeft / duration);
 
-        // Left side
         confetti({
             ...defaults,
             particleCount,
@@ -223,7 +213,6 @@ function triggerConfetti() {
             colors: ['#ef4444', '#ffffff']
         });
 
-        // Right side
         confetti({
             ...defaults,
             particleCount,
@@ -233,7 +222,6 @@ function triggerConfetti() {
             colors: ['#ef4444', '#ffffff']
         });
 
-        // "Firework" bursts
         if (Math.random() > 0.6) {
             confetti({
                 ...defaults,
@@ -248,7 +236,6 @@ function triggerConfetti() {
     }, 250);
 }
 
-// Listeners
 spinBtn.addEventListener('click', spin);
 updateBtn.addEventListener('click', updateNames);
 clearBtn.addEventListener('click', () => {
@@ -257,7 +244,8 @@ clearBtn.addEventListener('click', () => {
 });
 closeModal.addEventListener('click', () => {
     modal.classList.remove('active');
-    spinBtn.disabled = false; // Re-enable spin only AFTER modal is closed
+    spinBtn.disabled = false; 
 });
 
 init();
+
